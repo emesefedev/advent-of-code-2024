@@ -10,6 +10,6 @@
 🎄[Advent of Code](https://adventofcode.com/)
 
 - [x] Day 1
-- [ ] Day 2
+- [x] Day 2
 - [ ] Day 3
 
