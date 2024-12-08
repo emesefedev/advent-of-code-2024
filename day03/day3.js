@@ -17,7 +17,7 @@ export async function day3B() {
 }
 
 async function day3Input() {
-    const lines = await readFile({filePath: "test-input.txt"})
+    const lines = await readFile({filePath: "day03/day3-input.txt"})
     const matches = lines.map(line => parseRawInput(line))
     const matchesList = matches.flat()
     
