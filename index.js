@@ -1,3 +1,3 @@
-import { day2B } from "./day02/day2.js"
+import { day3A } from "./day03/day3.js"
 
-await day2B()
+await day3A()
