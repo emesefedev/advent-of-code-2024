@@ -5,7 +5,7 @@ export async function readFile({
 }) {
     try {
         const data = await fs.promises.readFile(filePath, 'utf8')
-        const lines = data.split('\n').filter(line => line.trim() !== '')
+        const lines = data.split('\n')//.filter(line => line.trim() !== '')
         
         return lines
     } 
