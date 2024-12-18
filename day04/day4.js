@@ -1,3 +1,4 @@
+import { error } from "console"
 import { readFile } from "../utilities/file-manager.js"
 
 export async function day4A() {
@@ -12,8 +13,28 @@ export async function day4A() {
     console.log(`XMAS appears ${xmasCounter} times`)
 }
 
-function day4B(input) {
-    
+export async function day4B() {
+    const letters = await day4Input()
+
+    const windowSize = 3
+    let xmasCounter = 0
+
+    for (let i = 0; i <= letters.length - windowSize; i++) {
+        for (let j = 0; j <= letters[0].length - windowSize; j++) {
+            const window = []
+            for (let row = i; row < i + windowSize; row++) {
+                const aux = []
+                for (let col = j; col < j + windowSize; col++) {
+                    const letter = letters[row][col];
+                    aux.push(letter)
+                }
+                window.push(aux)
+            }
+            if (checkX(window)) xmasCounter++
+        }
+    }
+
+    console.log(`X-MAS appears ${xmasCounter} times`)
 }
 
 async function day4Input() {
@@ -106,7 +127,6 @@ function checkDiagonallyDown(letters) {
     return counter
 }
 
-
 function checkLine(line) {
     const windowSize = 4
 
@@ -129,10 +149,43 @@ function checkLine(line) {
     return counter
 }
 
+function checkX(window) {
+    const windowSize = 3
+
+    if (window.length !== windowSize || window[0].length !== windowSize) {
+        throw new Error(`Window must be size ${windowSize}x${windowSize}`);
+    }
+    
+    const diagonalUp = []
+    const diagonalDown = []
+    for (let i = 0; i <windowSize; i++) {
+        diagonalUp.push(window[i][windowSize - 1 - i])
+        diagonalDown.push(window[i][i])
+    }
+
+    const checkDiagonalUp = checkXDiagonal(diagonalUp)
+    const checkDiagonalDown = checkXDiagonal(diagonalDown)
+
+    return checkDiagonalUp && checkDiagonalDown
+}
+
 function checkXMAS(word) {
     return word === "XMAS"
 }
 
 function checkSAMX(word) {
     return word === "SAMX"
+}
+
+function checkMAS(word) {
+    return word === "MAS"
+}
+
+function checkSAM(word) {
+    return word === "SAM"
+}
+
+function checkXDiagonal(diagonal) {
+    const diagonalWord = diagonal.join("")
+    return (checkMAS(diagonalWord) || checkSAM(diagonalWord))
 }
